@@ -13,7 +13,9 @@
 #include <cstdlib>
 #include <string>
 
+
 #define PARM_LENGTH 100
+
 
 
 class Data{
@@ -66,8 +68,10 @@ int Data::Dump(std::ostream *stream){
 	return 0;
 }
 template< class dataStruct> int my_getopt_long_only(int argc, char ** argv, dataStruct *opts){
+
 	char *name = new char[PARM_LENGTH];
 	char *value = new char[PARM_LENGTH];
+
 	bool nameInit = false;
 	bool valueInit = false;
 	
@@ -78,18 +82,23 @@ template< class dataStruct> int my_getopt_long_only(int argc, char ** argv, data
 			int size = eqPos - argv[i];
 			char *namePart = new char[size+1];
 			strncpy_s(namePart, size+1, argv[i],size);
+
 			if(sscanf_s(namePart, "--%s", name, PARM_LENGTH))
 				nameInit = true;
 			if (sscanf_s(++eqPos, "%s", value, PARM_LENGTH))
+
 				valueInit = true;
 		}
 		//читаем отдельно название атрибута
 		else if (!nameInit){
+
 			if(sscanf_s(argv[i], "--%s", name, PARM_LENGTH))
+
 					nameInit=true;
 		}
 		// читаем значение атрибута
 		else if (!valueInit){
+
 			if (sscanf_s(argv[i], "%s", value, PARM_LENGTH)){
 				valueInit = true;
 			}
